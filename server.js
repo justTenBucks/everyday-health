@@ -8,7 +8,7 @@ app.set('view engine', 'ejs');
 app.use('/public', express.static('public'));
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 app.use(flash());
 
 const passport = require('passport')
@@ -106,7 +106,7 @@ app.get('/register', loadLoginData, function (req, res) {
 app.post('/register', function (req, res) {
     // res.send('전송완료')
     let encryptedPassword = '';
-    bcrypt.hash(String(req.body.pw), 10, function(err, hash){
+    bcryptjs.hash(String(req.body.pw), 10, function(err, hash){
         encryptedPassword = hash;
         db.collection('counter').findOne({name : 'totalMember'}, function(err,res) {
             var totalMember = res.totalMember
@@ -129,7 +129,7 @@ app.post('/register', function (req, res) {
 // app.post('/register', function (req, res) {
 //     // res.send('전송완료')
 //     let encryptedPassword = '';
-//     bcrypt.hash(String(req.body.pw), 10, function(err, hash){
+//     bcryptjs.hash(String(req.body.pw), 10, function(err, hash){
 //         encryptedPassword = hash;
 //         db.collection('score').insertOne({id: req.body.id}, function(err,res){
 //             db.collection('member').insertOne({id: req.body.id, pw: encryptedPassword, pw_Q: req.body.pw_Q, pw_A: req.body.pw_A },function(err, res){
@@ -340,7 +340,7 @@ passport.use(new Localstrategy({
         if (err) return done(err)
         if (!res) return done(null, false, req.flash('loginMessage', '아이디가 존재하지 않습니다.'))
         //req.flash('signinMessage', '아이디가 존재하지 않습니다.'));
-        bcrypt.compare(inputPw, res.pw).then(function(result){
+        bcryptjs.compare(inputPw, res.pw).then(function(result){
             psword_result = result;
             if (psword_result == true){
                 return done(null, res)
