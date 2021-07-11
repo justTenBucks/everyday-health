@@ -1,0 +1,25 @@
+.div-main-left{
+    background-color: rgb(133, 110, 110);
+    float:left;
+    width:50%;
+}
+.div-main-right{
+    background-color: yellowgreen;
+    float:right;
+    width:50%;
+}
+
+.div-today-ranking{
+    background-color:rgb(140, 188, 194);
+    text-align: center;
+}
+
+.div-week-ranking{
+    background-color: khaki;
+    text-align: center;
+}
+
+.div-month-ranking{
+    background-color: lightgrey;
+    text-align: center;
+}
